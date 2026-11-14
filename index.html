@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#160106" />
+<title>Happy Birthday My Girlfriend</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root{
+    --b-900:#160106;
+    --b-800:#25040e;
+    --b-700:#3a0716;
+    --b-600:#4d0b1e;
+
+    --gold:#d8b56b;
+    --gold-lt:#f8ecc6;
+    --gold-dk:#a5762b;
+    --glow:rgba(216,181,107,.45);
+
+    --serif:'Playfair Display', Georgia, serif;
+    --body:'Cormorant Garamond', Georgia, serif;
+    --script:'Great Vibes', cursive;
+
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+
+  html, body { height: 100%; }
+
+  body{
+    font-family: var(--body);
+    background: var(--b-900);
+    color: var(--gold-lt);
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ================= LATAR BURGUNDY ================= */
+  .bg{
+    position: fixed; inset: 0; z-index: -4;
+    background:
+      radial-gradient(120% 90% at 15% 5%,  rgba(122,22,48,.55) 0%, transparent 55%),
+      radial-gradient(100% 80% at 90% 95%, rgba(90,15,38,.62) 0%, transparent 60%),
+      radial-gradient(80% 70% at 50% 50%,  rgba(60,8,22,.75) 0%, transparent 70%),
+      linear-gradient(155deg, #160106 0%, #25040e 45%, #3a0716 100%);
+  }
+
+  .orb{
+    position: fixed; border-radius: 50%;
+    filter: blur(90px); z-index: -3;
+    pointer-events: none; opacity: .5;
+    will-change: transform;
+  }
+  .orb.a{
+    width: 52vmax; height: 52vmax; left: -18vmax; top: -20vmax;
+    background: radial-gradient(circle, rgba(150,30,60,.55), transparent 65%);
+    animation: drift1 26s ease-in-out infinite alternate;
+  }
+  .orb.b{
+    width: 46vmax; height: 46vmax; right: -16vmax; bottom: -18vmax;
+    background: radial-gradient(circle, rgba(216,181,107,.22), transparent 65%);
+    animation: drift2 34s ease-in-out infinite alternate;
+  }
+  .orb.c{
+    width: 34vmax; height: 34vmax; left: 52%; top: 58%;
+    background: radial-gradient(circle, rgba(120,20,50,.42), transparent 65%);
+    animation: drift1 44s ease-in-out infinite alternate-reverse;
+  }
+  @keyframes drift1{ to { transform: translate3d(6vmax, 4vmax, 0) scale(1.08); } }
+  @keyframes drift2{ to { transform: translate3d(-5vmax, -4vmax, 0) scale(1.1); } }
+
+  /* debu emas melayang */
+  .dust{ position: fixed; inset: 0; z-index: -2; pointer-events: none; overflow: hidden; }
+  .dust span{
+    position: absolute; border-radius: 50%;
+    background: radial-gradient(circle, #f8ecc6 0%, rgba(216,181,107,0) 70%);
+    animation: floatUp linear infinite;
+  }
+  @keyframes floatUp{
+    0%   { transform: translate3d(0, 0, 0); }
+    50%  { transform: translate3d(14px, -46px, 0); }
+    100% { transform: translate3d(-10px, -100px, 0); }
+  }
+
+  .vignette{
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background: radial-gradient(120% 100% at 50% 50%, transparent 42%, rgba(0,0,0,.68) 100%);
+  }
+
+  /* ================= PROGRESS ================= */
+  .progress{
+    position: fixed; top: 0; left: 0; height: 2px; width: 0;
+    z-index: 40; border-radius: 0 99px 99px 0;
+    background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold-lt));
+    box-shadow: 0 0 16px var(--glow);
+    transition: width 1.05s var(--ease);
+  }
+
+  /* ================= DECK / SLIDE ================= */
+  .deck{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .track{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    will-change: transform;
+    transition: transform 1.05s var(--ease);
+  }
+
+  .slide{
+    flex: 0 0 100%;
+    min-width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(1rem, 4vw, 2.5rem);
+    padding-bottom: clamp(6rem, 13vh, 8rem);
+  }
+
+  /* ================= KARTU ================= */
+  .card{
+    position: relative;
+    width: min(880px, 100%);
+    max-height: 100%;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    text-align: center;
+    padding: clamp(1.8rem, 5vw, 3.6rem) clamp(1.3rem, 4.5vw, 3.2rem);
+    border-radius: clamp(26px, 5vw, 54px);
+    background: linear-gradient(165deg, rgba(78,12,32,.60) 0%, rgba(28,3,11,.80) 100%);
+    border: 1px solid rgba(216,181,107,.26);
+    box-shadow:
+      0 40px 90px -30px rgba(0,0,0,.92),
+      0 0 90px -40px var(--glow),
+      inset 0 1px 0 rgba(248,236,198,.14),
+      inset 0 0 0 10px rgba(216,181,107,.028);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(216,181,107,.35) transparent;
+  }
+  .card::-webkit-scrollbar{ width: 6px; }
+  .card::-webkit-scrollbar-thumb{
+    background: rgba(216,181,107,.35); border-radius: 99px;
+  }
+
+  /* ================= TEKS ================= */
+  .title{
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(1.9rem, 6.2vw, 3.6rem);
+    line-height: 1.18;
+    letter-spacing: .005em;
+    background: linear-gradient(100deg,
+      #f8ecc6 0%, #e3c07c 28%, #fdf3d4 48%, #c99a45 70%, #f8ecc6 100%);
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 4px 26px rgba(216,181,107,.30));
+    animation: sheen 9s ease-in-out infinite;
+  }
+  @keyframes sheen{
+    0%, 100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+  }
+
+  .title--md{ font-size: clamp(1.5rem, 4.8vw, 2.75rem); line-height: 1.24; }
+
+  .lead{
+    font-size: clamp(1.02rem, .9rem + .95vw, 1.45rem);
+    line-height: 1.82;
+    font-weight: 500;
+    letter-spacing: .012em;
+    color: #f2e2ba;
+    text-shadow: 0 0 26px rgba(216,181,107,.13);
+  }
+  .lead--sm{ font-size: clamp(.98rem, .86rem + .8vw, 1.32rem); line-height: 1.75; }
+
+  .script{
+    font-family: var(--script);
+    font-weight: 400;
+    font-size: clamp(2.1rem, 7.5vw, 4.2rem);
+    line-height: 1.3;
+    background: linear-gradient(180deg, #fdf3d4 0%, #e0bc75 55%, #b8893a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 6px 34px rgba(216,181,107,.38));
+  }
+
+  /* ================= ORNAMEN ================= */
+  .ornament{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(.6rem, 2vw, 1.1rem);
+    margin: clamp(.9rem, 2.2vh, 1.5rem) 0;
+  }
+  .ornament span{
+    height: 1px;
+    width: clamp(34px, 11vw, 95px);
+    background: linear-gradient(90deg, transparent, rgba(216,181,107,.78));
+  }
+  .ornament span:last-child{
+    background: linear-gradient(270deg, transparent, rgba(216,181,107,.78));
+  }
+  .ornament b{
+    color: var(--gold);
+    font-size: .95rem;
+    line-height: 1;
+    text-shadow: 0 0 18px var(--glow);
+  }
+
+  /* ================= ANIMASI REVEAL ================= */
+  .reveal{
+    opacity: 0;
+    transform: translateY(26px) scale(.985);
+    filter: blur(6px);
+    transition:
+      opacity .95s var(--ease),
+      transform 1.05s var(--ease),
+      filter .95s ease;
+  }
+  .slide.is-active .reveal{
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+  .slide.is-active .reveal.d1{ transition-delay: .16s; }
+  .slide.is-active .reveal.d2{ transition-delay: .30s; }
+  .slide.is-active .reveal.d3{ transition-delay: .44s; }
+  .slide.is-active .reveal.d4{ transition-delay: .58s; }
+
+  /* ================= NAVIGASI ================= */
+  .nav{
+    position: fixed;
+    left: 50%;
+    bottom: clamp(.9rem, 2.4vh, 1.8rem);
+    transform: translateX(-50%);
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    gap: clamp(.6rem, 2.2vw, 1.2rem);
+    padding: .5rem .8rem;
+    border-radius: 999px;
+    background: rgba(28,3,11,.48);
+    border: 1px solid rgba(216,181,107,.16);
+    box-shadow: 0 22px 55px -22px rgba(0,0,0,.95);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    user-select: none;
+  }
+
+  .nav-btn{
+    width: clamp(38px, 10vw, 46px);
+    height: clamp(38px, 10vw, 46px);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(216,181,107,.42);
+    background: rgba(45,6,17,.55);
+    color: var(--gold-lt);
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background .4s var(--ease),
+                box-shadow .4s var(--ease),
+                transform .4s var(--ease),
+                opacity .4s ease;
+  }
+  .nav-btn:hover{
+    background: rgba(216,181,107,.16);
+    box-shadow: 0 0 26px -4px var(--glow);
+    transform: translateY(-2px);
+  }
+  .nav-btn:active{ transform: scale(.93); }
+  .nav-btn:disabled{
+    opacity: .25;
+    cursor: default;
+    transform: none;
+    box-shadow: none;
+    background: rgba(45,6,17,.55);
+  }
+
+  .dots{
+    display: flex;
+    align-items: center;
+    gap: clamp(5px, 1.4vw, 8px);
+  }
+
+  .dot{
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    padding: 0;
+    border: 1px solid rgba(216,181,107,.5);
+    background: transparent;
+    cursor: pointer;
+    transition: width .55s var(--ease),
+                background .55s var(--ease),
+                box-shadow .55s var(--ease),
+                border-color .55s var(--ease);
+  }
+  .dot:hover{ background: rgba(216,181,107,.45); }
+  .dot.is-active{
+    width: 24px;
+    border-radius: 999px;
+    border-color: transparent;
+    background: linear-gradient(90deg, var(--gold-lt), var(--gold-dk));
+    box-shadow: 0 0 14px var(--glow);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .track, .progress, .reveal, .dot, .nav-btn{ transition-duration: .01ms !important; }
+    .orb, .dust span, .title{ animation: none !important; }
+  }
+</style>
+</head>
+
+<body>
+
+  <div class="bg"></div>
+  <div class="orb a"></div>
+  <div class="orb b"></div>
+  <div class="orb c"></div>
+  <div class="dust" id="dust"></div>
+  <div class="vignette"></div>
+
+  <div class="progress" id="progress"></div>
+
+  <main class="deck" id="deck">
+    <div class="track" id="track">
+
+      <!-- SLIDE 1 -->
+      <section class="slide" aria-label="Slide 1">
+        <div class="card">
+          <div class="ornament reveal d1"><span></span><b>❦</b><span></span></div>
+          <h1 class="title reveal d2">Dibuka Yaaaaaa</h1>
+          <div class="ornament reveal d3"><span></span><b>❦</b><span></span></div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2 -->
+      <section class="slide" aria-label="Slide 2">
+        <div class="card">
+          <div class="ornament reveal d1"><span></span><b>❦</b><span></span></div>
+          <h2 class="title title--md reveal d2">
+            Tadaaaaaaaaaa<br>
+            Selamat Hari Ulang Tahun<br>
+            Dedeee Sayangkuuuu
+          </h2>
+          <div class="ornament reveal d3"><span></span><b>❦</b><span></span></div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3 -->
+      <section class="slide" aria-label="Slide 3">
+        <div class="card">
+          <p class="lead reveal d1">
+            Dibaca yaa dan pahami karena babangg yang buatin ini
+            demi dedee sayanggkuuu
+          </p>
+        </div>
+      </section>
+
+      <!-- SLIDE 4 -->
+      <section class="slide" aria-label="Slide 4">
+        <div class="card">
+          <p class="lead reveal d1">
+            Dedee sayangg hari ini adalah hari yang sangat spesial dan paling
+            istimewa karena dedee sayang Bertambah umur dari 16 ke 17 tahun berlalu
+          </p>
+        </div>
+      </section>
+
+      <!-- SLIDE 5 -->
+      <section class="slide" aria-label="Slide 5">
+        <div class="card">
+          <p class="lead reveal d1">
+            Dedeee sayangg, Dedee bertambah umur sudah besar dan dewasa Tapiiii
+            bagi babang dedee tetap menjadi perempuan yang masih seperti anak kecil,
+            manja, imut, dan lucuu
+          </p>
+        </div>
+      </section>
+
+      <!-- SLIDE 6 -->
+      <section class="slide" aria-label="Slide 6">
+        <div class="card">
+          <p class="lead reveal d1">
+            Dedeee sayang di umur kemaren telah banyak melewati kehidupan ada saat
+            bahagia ada saat tidak bahagia, tapi jangan berkecil hati karna ada babang
+            yang di turunkan oleh Allah SWT dan dipertemukan untuk menjadi pasangan
+            sekaligus calon suami untuk dedee sayangg
+          </p>
+        </div>
+      </section>
+
+      <!-- SLIDE 7 -->
+      <section class="slide" aria-label="Slide 7">
+        <div class="card">
+          <p class="lead reveal d1">
+            Sudah 1 tahun hubungan kita berjalan dan banyak melewati fase serta
+            suasana, tetapi kita tetap sabar dan selalu bersama karena kehidupan
+            ini sayangg
+          </p>
+        </div>
+      </section>
+
+      <!-- SLIDE 8 -->
+      <section class="slide" aria-label="Slide 8">
+        <div class="card">
+          <p class="lead reveal d1">
+            Dedee sayangg babangg sudah mengusahakan effort untuk merayakan
+            ulang tahun dedee, Cukup hargai dan Terima effort dari babang ini
+          </p>
+        </div>
+      </section>
+
+      <!-- SLIDE 9 -->
+      <section class="slide" aria-label="Slide 9">
+        <div class="card">
+          <p class="lead reveal d1">
+            Dedeee sayangg sudah pernah berusaha merayakan ulang tahun babang,
+            kini babangg yang mengusahakan juga, beruntungnya dedee sayang adalah
+            perempuan pertama yang babang rayakan jadi sangatlah spesiallllll
+          </p>
+        </div>
+      </section>
+
+      <!-- SLIDE 10 -->
+      <section class="slide" aria-label="Slide 10">
+        <div class="card">
+          <div class="ornament reveal d1"><span></span><b>❦</b><span></span></div>
+          <h2 class="title title--md reveal d2">Eitttttt masih adaaa 1 slide lagi heheee</h2>
+          <div class="ornament reveal d3"><span></span><b>❦</b><span></span></div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11 -->
+      <section class="slide" aria-label="Slide 11">
+        <div class="card">
+          <p class="lead lead--sm reveal d1">
+            Dedeee sayangkuuuu Selamat ulang tahun yaaa semogaaa di umur 17 tahun
+            sekarangg dedee sayang selalu bahagia sehat doanya selalu di panjatkan
+            Panjang Umur moodnya bahagia terhindar dari segala masalah di selalu
+            kuatkan dan menjadi seorang Wanita aaa Tersayangg Tercintaaaa Dannn
+            Tercantikkkkk Aminnnn Aminnnn Yaaa Allahhh
+          </p>
+        </div>
+      </section>
+
+      <!-- SLIDE 12 -->
+      <section class="slide" aria-label="Slide 12">
+        <div class="card">
+          <div class="ornament reveal d1"><span></span><b>❦</b><span></span></div>
+          <h2 class="script reveal d2">Selamat ulang tahun sayangkuuu</h2>
+          <div class="ornament reveal d3"><span></span><b>❦</b><span></span></div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <nav class="nav" aria-label="Navigasi slide">
+    <button class="nav-btn prev" id="prev" type="button" aria-label="Slide sebelumnya">‹</button>
+    <div class="dots" id="dots"></div>
+    <button class="nav-btn next" id="next" type="button" aria-label="Slide berikutnya">›</button>
+  </nav>
+
+<script>
+(function () {
+  'use strict';
+
+  const track    = document.getElementById('track');
+  const deck     = document.getElementById('deck');
+  const slides   = Array.from(document.querySelectorAll('.slide'));
+  const dotsBox  = document.getElementById('dots');
+  const progress = document.getElementById('progress');
+  const prevBtn  = document.getElementById('prev');
+  const nextBtn  = document.getElementById('next');
+
+  const total = slides.length;
+  let current = 0;
+
+  /* ---------- Buat titik navigasi ---------- */
+  slides.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'dot';
+    b.setAttribute('aria-label', 'Buka slide ' + (i + 1));
+    b.addEventListener('click', () => goTo(i));
+    dotsBox.appendChild(b);
+  });
+  const dots = Array.from(dotsBox.children);
+
+  /* ---------- Pindah slide ---------- */
+  function goTo(i) {
+    i = Math.max(0, Math.min(total - 1, i));
+    current = i;
+
+    track.style.transform = 'translate3d(' + (-i * 100) + '%, 0, 0)';
+
+    slides.forEach((s, n) => s.classList.toggle('is-active', n === i));
+    dots.forEach((d, n) => d.classList.toggle('is-active', n === i));
+
+    progress.style.width = ((i + 1) / total * 100) + '%';
+
+    const card = slides[i].querySelector('.card');
+    if (card) card.scrollTop = 0;
+
+    prevBtn.disabled = i === 0;
+    nextBtn.disabled = i === total - 1;
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  /* ---------- Keyboard ---------- */
+  document.addEventListener('keydown', (e) => {
+    if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(e.key)) {
+      e.preventDefault(); goTo(current + 1);
+    } else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) {
+      e.preventDefault(); goTo(current - 1);
+    } else if (e.key === 'Home') {
+      e.preventDefault(); goTo(0);
+    } else if (e.key === 'End') {
+      e.preventDefault(); goTo(total - 1);
+    }
+  });
+
+  /* ---------- Swipe (mobile) ---------- */
+  let sx = 0, sy = 0, tracking = false;
+
+  deck.addEventListener('touchstart', (e) => {
+    const t = e.changedTouches[0];
+    sx = t.clientX; sy = t.clientY; tracking = true;
+  }, { passive: true });
+
+  deck.addEventListener('touchend', (e) => {
+    if (!tracking) return;
+    tracking = false;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - sx;
+    const dy = t.clientY - sy;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 55) {
+      goTo(current + (dx < 0 ? 1 : -1));
+    }
+  }, { passive: true });
+
+  /* ---------- Debu emas ---------- */
+  (function dust() {
+    const box = document.getElementById('dust');
+    for (let i = 0; i < 16; i++) {
+      const s = document.createElement('span');
+      const size = (Math.random() * 2.6 + 1.4).toFixed(1);
+      s.style.width = size + 'px';
+      s.style.height = size + 'px';
+      s.style.left = (Math.random() * 100).toFixed(2) + '%';
+      s.style.top = (Math.random() * 100).toFixed(2) + '%';
+      s.style.opacity = (Math.random() * 0.32 + 0.14).toFixed(2);
+      s.style.animationDuration = (Math.random() * 16 + 16).toFixed(1) + 's';
+      s.style.animationDelay = (-Math.random() * 24).toFixed(1) + 's';
+      box.appendChild(s);
+    }
+  })();
+
+  /* ---------- Start ---------- */
+  requestAnimationFrame(() => requestAnimationFrame(() => goTo(0)));
+})();
+</script>
+</body>
+</html>
